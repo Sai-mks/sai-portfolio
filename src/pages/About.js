@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { theme } from '../styles/theme';
+import photo from '../assets/photo.png';
 
 const AboutContainer = styled.div`
   min-height: 100vh;
@@ -50,15 +51,18 @@ const ImageContainer = styled.div`
   box-shadow: ${theme.shadows.xlarge};
 `;
 
-const ProfileImage = styled.div`
+const ProfileImage = styled.img`
   width: 100%;
-  height: 400px;
-  background: ${theme.gradients.primary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${theme.typography.fontSize['4xl']};
-  color: ${theme.colors.text};
+  height: 600px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: ${theme.borderRadius.xl};
+  transition: all ${theme.transitions.normal};
+  
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: ${theme.shadows.glow};
+  }
 `;
 
 function About() {
@@ -80,29 +84,29 @@ function About() {
         >
           <TextContent>
             <p>
-              I'm a passionate full-stack developer with a love for creating 
-              beautiful, functional, and user-friendly applications. With 
-              expertise in modern web technologies, I enjoy turning complex 
-              problems into simple, elegant solutions.
+              I'm a passionate Frontend Developer with 8 months of hands-on experience 
+              in developing web and mobile applications. My journey in technology 
+              started with curiosity and has evolved into a deep love for building 
+              applications that solve real-world problems.
             </p>
             <br />
             <p>
-              When I'm not coding, you can find me exploring new technologies, 
-              contributing to open-source projects, or sharing knowledge with 
-              the developer community. I believe in continuous learning and 
-              staying up-to-date with the latest industry trends.
+              I specialize in React.js, React Native, and modern web technologies. 
+              I have experience integrating with React Native for cross-platform mobile 
+              app development and have worked on live projects including HiFix Service, 
+              HiFix Customer and HiFix Website.
             </p>
             <br />
             <p>
-              My goal is to build applications that make a positive impact 
-              and provide exceptional user experiences.
+              I'm constantly learning new tools and technologies to stay updated with 
+              frontend trends. I have hands-on experience in web applications development 
+              using HTML, CSS, and React JS, with knowledge of MySQL for data retrieval 
+              and display on the frontend.
             </p>
           </TextContent>
           
           <ImageContainer>
-            <ProfileImage>
-              👨‍💻
-            </ProfileImage>
+            <ProfileImage src={photo} alt="Sai Kumar - Frontend Developer" />
           </ImageContainer>
         </Content>
       </Container>

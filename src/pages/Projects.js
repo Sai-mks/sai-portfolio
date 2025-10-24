@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { theme } from '../styles/theme';
+import { PROJECTS } from '../utils/constants';
 
 const ProjectsContainer = styled.div`
   min-height: 100vh;
@@ -104,62 +105,8 @@ const ProjectLink = styled.a`
   }
 `;
 
-const projects = [
-  {
-    id: 1,
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.',
-    tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    demo: '#',
-    github: '#',
-    emoji: '🛒'
-  },
-  {
-    id: 2,
-    title: 'Task Management App',
-    description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-    tech: ['React', 'Socket.io', 'Express', 'PostgreSQL'],
-    demo: '#',
-    github: '#',
-    emoji: '📋'
-  },
-  {
-    id: 3,
-    title: 'Weather Dashboard',
-    description: 'A responsive weather dashboard with location-based forecasts, interactive maps, and detailed weather analytics.',
-    tech: ['React', 'TypeScript', 'Chart.js', 'OpenWeather API'],
-    demo: '#',
-    github: '#',
-    emoji: '🌤️'
-  },
-  {
-    id: 4,
-    title: 'Social Media Analytics',
-    description: 'A comprehensive analytics platform for social media metrics with data visualization and reporting capabilities.',
-    tech: ['Next.js', 'D3.js', 'Python', 'Redis'],
-    demo: '#',
-    github: '#',
-    emoji: '📊'
-  },
-  {
-    id: 5,
-    title: 'Portfolio Website',
-    description: 'A modern, responsive portfolio website built with React and styled-components, featuring smooth animations and dark mode.',
-    tech: ['React', 'Styled Components', 'Framer Motion'],
-    demo: '#',
-    github: '#',
-    emoji: '💼'
-  },
-  {
-    id: 6,
-    title: 'Chat Application',
-    description: 'A real-time chat application with group messaging, file sharing, and message encryption capabilities.',
-    tech: ['React', 'Socket.io', 'Node.js', 'MongoDB'],
-    demo: '#',
-    github: '#',
-    emoji: '💬'
-  }
-];
+// Use the real projects from constants
+const projects = PROJECTS;
 
 function Projects() {
   return (
@@ -186,7 +133,73 @@ function Projects() {
               transition={{ duration: 0.6, delay: 0.1 * index }}
             >
               <ProjectImage>
-                {project.emoji}
+                {(project.title.toLowerCase().includes('rotiwala') || project.title.toLowerCase().includes('rottiwala')) ? (
+                  <div style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', 
+                    borderRadius: '12px', 
+                    padding: '20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                    border: '2px solid #e9ecef',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <img 
+                      src={process.env.PUBLIC_URL + '/rotiwala.jpg'} 
+                      alt="Rottiwala Logo" 
+                      style={{
+                        maxWidth: '90%',
+                        maxHeight: '90%',
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
+                        transition: 'transform 0.3s ease'
+                      }}
+                      onError={(e) => {
+                        console.log('Image failed to load:', e.target.src);
+                        e.target.style.display = 'none';
+                      }}
+                      onLoad={() => console.log('Rottiwala image loaded successfully')}
+                    />
+                  </div>
+                ) : (project.title.toLowerCase().includes('hifix')) ? (
+                  <div style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', 
+                    borderRadius: '12px', 
+                    padding: '20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                    border: '2px solid #e9ecef',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <img 
+                      src={process.env.PUBLIC_URL + '/hifix.png'} 
+                      alt="HiFix Logo" 
+                      style={{
+                        maxWidth: '90%',
+                        maxHeight: '90%',
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
+                        transition: 'transform 0.3s ease'
+                      }}
+                      onError={(e) => {
+                        console.log('Image failed to load:', e.target.src);
+                        e.target.style.display = 'none';
+                      }}
+                      onLoad={() => console.log('HiFix image loaded successfully')}
+                    />
+                  </div>
+                ) : (
+                  project.emoji
+                )}
               </ProjectImage>
               
               <ProjectTitle>{project.title}</ProjectTitle>
@@ -204,9 +217,6 @@ function Projects() {
               <ProjectLinks>
                 <ProjectLink href={project.demo} target="_blank" rel="noopener noreferrer">
                   Live Demo
-                </ProjectLink>
-                <ProjectLink href={project.github} target="_blank" rel="noopener noreferrer">
-                  GitHub
                 </ProjectLink>
               </ProjectLinks>
             </ProjectCard>

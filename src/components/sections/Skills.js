@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { theme } from '../../styles/theme';
+import { SKILLS } from '../../utils/constants';
 
 const SkillsContainer = styled.section`
   padding: ${theme.spacing.xxxl} 0;
@@ -85,23 +86,18 @@ const SkillTag = styled(motion.span)`
 const skillCategories = [
   {
     icon: '🎨',
-    title: 'Frontend',
-    skills: ['React', 'Vue.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Sass', 'Styled Components', 'Tailwind CSS', 'Next.js', 'Gatsby']
+    title: 'Frontend Development',
+    skills: ['JavaScript', 'React.js', 'HTML', 'CSS']
   },
   {
-    icon: '⚙️',
-    title: 'Backend',
-    skills: ['Node.js', 'Express', 'Python', 'Django', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Redis', 'GraphQL', 'REST APIs', 'Microservices']
-  },
-  {
-    icon: '☁️',
-    title: 'Cloud & DevOps',
-    skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'GitHub Actions', 'Vercel', 'Netlify', 'Heroku', 'Linux', 'Nginx', 'Jenkins']
+    icon: '📱',
+    title: 'Mobile Development',
+    skills: ['React Native', 'Expo']
   },
   {
     icon: '🛠️',
-    title: 'Tools & Others',
-    skills: ['Git', 'VS Code', 'Figma', 'Postman', 'Jest', 'Cypress', 'Webpack', 'Babel', 'ESLint', 'Prettier', 'Agile']
+    title: 'Tools & Version Control',
+    skills: ['Git', 'GitHub']
   }
 ];
 

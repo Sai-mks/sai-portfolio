@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { theme } from '../../styles/theme';
+import { PORTFOLIO_CONFIG, EXPERIENCE, EDUCATION } from '../../utils/constants';
+import photo from '../../assets/photo.png';
 
 const AboutContainer = styled.section`
   padding: ${theme.spacing.xxxl} 0;
@@ -54,15 +56,18 @@ const ImageContainer = styled(motion.div)`
   box-shadow: ${theme.shadows.xlarge};
 `;
 
-const ProfileImage = styled.div`
+const ProfileImage = styled.img`
   width: 100%;
-  height: 400px;
-  background: ${theme.gradients.primary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${theme.typography.fontSize['4xl']};
-  color: ${theme.colors.text};
+  height: 600px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: ${theme.borderRadius.xl};
+  transition: all ${theme.transitions.normal};
+  
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: ${theme.shadows.glow};
+  }
 `;
 
 const SkillsGrid = styled(motion.div)`
@@ -109,22 +114,12 @@ const skills = [
   {
     icon: '⚛️',
     title: 'Frontend Development',
-    description: 'React, Vue.js, TypeScript, and modern CSS frameworks'
-  },
-  {
-    icon: '🚀',
-    title: 'Backend Development',
-    description: 'Node.js, Python, Express, and database management'
+    description: 'React, TypeScript, and modern CSS frameworks'
   },
   {
     icon: '📱',
     title: 'Mobile Development',
     description: 'React Native and cross-platform mobile solutions'
-  },
-  {
-    icon: '☁️',
-    title: 'Cloud & DevOps',
-    description: 'AWS, Docker, CI/CD, and deployment automation'
   }
 ];
 
@@ -152,21 +147,22 @@ function About() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <p>
-              I'm a passionate full-stack developer with over 3 years of experience 
-              in creating digital solutions that make a difference. My journey in 
-              technology started with curiosity and has evolved into a deep love 
-              for building applications that solve real-world problems.
+              I'm a passionate Frontend Developer with 8 months of hands-on experience 
+              in developing web and mobile applications. My journey in technology 
+              started with curiosity and has evolved into a deep love for building 
+              applications that solve real-world problems.
             </p>
             <p>
-              I specialize in modern web technologies and enjoy working with 
-              React, Node.js, and cloud platforms. My approach to development 
-              is user-centered, focusing on creating intuitive and accessible 
-              experiences that delight users.
+              I specialize in React.js, React Native, and modern web technologies. 
+              I have experience integrating with React Native for cross-platform mobile 
+              app development and have worked on live projects including HiFix Service, 
+              HiFix Customer and HiFix Website.
             </p>
             <p>
-              When I'm not coding, you can find me exploring new technologies, 
-              contributing to open-source projects, or sharing knowledge with 
-              the developer community through blog posts and mentoring.
+              I'm constantly learning new tools and technologies to stay updated with 
+              frontend trends. I have hands-on experience in web applications development 
+              using HTML, CSS, and React JS, with knowledge of MySQL for data retrieval 
+              and display on the frontend.
             </p>
           </TextContent>
           
@@ -175,9 +171,7 @@ function About() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <ProfileImage>
-              👨‍💻
-            </ProfileImage>
+            <ProfileImage src={photo} alt="Sai Kumar - Frontend Developer" />
           </ImageContainer>
         </Content>
         

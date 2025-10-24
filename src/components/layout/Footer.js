@@ -1,13 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaHeart } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaGlobe, FaHeart } from 'react-icons/fa';
 import { theme } from '../../styles/theme';
+import { PORTFOLIO_CONFIG } from '../../utils/constants';
 
 const FooterContainer = styled.footer`
   background: ${theme.colors.surface};
-  padding: ${theme.spacing.xxxl} 0 ${theme.spacing.xl};
+  padding: ${theme.spacing.xl} 0 ${theme.spacing.xl};
   border-top: 1px solid ${theme.colors.border};
   margin-top: auto;
+  
+  /* Move footer up when on contact page */
+  .contact-page + & {
+    margin-top: -${theme.spacing.xxl};
+  }
 `;
 
 const FooterContent = styled.div`
@@ -66,28 +72,6 @@ const FooterBottom = styled.div`
   font-size: ${theme.typography.fontSize.xs};
 `;
 
-const socialLinks = [
-  {
-    icon: FaGithub,
-    href: 'https://github.com/yourusername',
-    label: 'GitHub',
-  },
-  {
-    icon: FaLinkedin,
-    href: 'https://linkedin.com/in/yourusername',
-    label: 'LinkedIn',
-  },
-  {
-    icon: FaTwitter,
-    href: 'https://twitter.com/yourusername',
-    label: 'Twitter',
-  },
-  {
-    icon: FaEnvelope,
-    href: 'mailto:your.email@example.com',
-    label: 'Email',
-  },
-];
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -97,24 +81,43 @@ function Footer() {
       <FooterContent>
         <Copyright>
           <p>
-            © {currentYear} Sai. Made with <Heart /> using React.
+            © {currentYear} {PORTFOLIO_CONFIG.name}. Made with <Heart /> using React.
           </p>
           <p>
             All rights reserved.
           </p>
         </Copyright>
         <SocialLinks>
-          {socialLinks.map((social) => (
-            <SocialLink
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.label}
-            >
-              <social.icon />
-            </SocialLink>
-          ))}
+          <SocialLink
+            href={PORTFOLIO_CONFIG.social.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <FaGithub />
+          </SocialLink>
+          <SocialLink
+            href={PORTFOLIO_CONFIG.social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <FaLinkedin />
+          </SocialLink>
+          <SocialLink
+            href={PORTFOLIO_CONFIG.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Website"
+          >
+            <FaGlobe />
+          </SocialLink>
+          <SocialLink
+            href={PORTFOLIO_CONFIG.social.email}
+            aria-label="Email"
+          >
+            <FaEnvelope />
+          </SocialLink>
         </SocialLinks>
       </FooterContent>
       <FooterBottom>

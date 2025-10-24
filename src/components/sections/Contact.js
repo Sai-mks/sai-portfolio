@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
+import { FaEnvelope, FaPhone } from 'react-icons/fa';
 import { theme } from '../../styles/theme';
+import { PORTFOLIO_CONFIG } from '../../utils/constants';
 
 const ContactContainer = styled.section`
   padding: ${theme.spacing.xxxl} 0;
@@ -27,174 +28,71 @@ const SectionTitle = styled(motion.h2)`
 `;
 
 const ContactContent = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: ${theme.spacing.xxxl};
-  align-items: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+`;
+
+const ContactItems = styled.div`
+  display: flex;
+  gap: ${theme.spacing.xl};
   
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    grid-template-columns: 1fr;
-    gap: ${theme.spacing.xl};
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-direction: column;
+    gap: ${theme.spacing.lg};
   }
 `;
 
 const ContactInfo = styled(motion.div)`
+  text-align: center;
+  
   h3 {
     font-size: ${theme.typography.fontSize['2xl']};
     font-weight: ${theme.typography.fontWeight.semibold};
-    margin-bottom: ${theme.spacing.lg};
-    color: ${theme.colors.text};
-  }
-  
-  p {
-    color: ${theme.colors.textSecondary};
-    line-height: ${theme.typography.lineHeight.relaxed};
     margin-bottom: ${theme.spacing.xl};
+    color: ${theme.colors.text};
   }
 `;
 
-const ContactItem = styled(motion.div)`
+const ContactItem = styled(motion.a)`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: ${theme.spacing.md};
-  margin-bottom: ${theme.spacing.lg};
   color: ${theme.colors.textSecondary};
-  padding: ${theme.spacing.md};
-  border-radius: ${theme.borderRadius.md};
+  padding: ${theme.spacing.lg} ${theme.spacing.xl};
+  border-radius: ${theme.borderRadius.lg};
+  background: ${theme.colors.surface};
+  border: 1px solid ${theme.colors.border};
+  text-decoration: none;
   transition: all ${theme.transitions.normal};
+  min-width: 200px;
   
   &:hover {
-    background: ${theme.colors.surface};
+    background: ${theme.colors.primary};
     color: ${theme.colors.text};
-  }
-  
-  svg {
-    color: ${theme.colors.primary};
-    font-size: ${theme.typography.fontSize.lg};
-    min-width: 20px;
-  }
-`;
-
-const Form = styled(motion.form)`
-  background: ${theme.colors.surface};
-  padding: ${theme.spacing.xl};
-  border-radius: ${theme.borderRadius.xl};
-  border: 1px solid ${theme.colors.border};
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: ${theme.spacing.lg};
-`;
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: ${theme.spacing.sm};
-  color: ${theme.colors.text};
-  font-weight: ${theme.typography.fontWeight.medium};
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: ${theme.spacing.md};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.borderRadius.md};
-  background: ${theme.colors.background};
-  color: ${theme.colors.text};
-  font-size: ${theme.typography.fontSize.base};
-  transition: all ${theme.transitions.normal};
-  
-  &:focus {
-    outline: none;
-    border-color: ${theme.colors.primary};
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-  
-  &::placeholder {
-    color: ${theme.colors.textMuted};
-  }
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  padding: ${theme.spacing.md};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.borderRadius.md};
-  background: ${theme.colors.background};
-  color: ${theme.colors.text};
-  font-size: ${theme.typography.fontSize.base};
-  min-height: 120px;
-  resize: vertical;
-  transition: all ${theme.transitions.normal};
-  
-  &:focus {
-    outline: none;
-    border-color: ${theme.colors.primary};
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-  
-  &::placeholder {
-    color: ${theme.colors.textMuted};
-  }
-`;
-
-const SubmitButton = styled(motion.button)`
-  background: ${theme.gradients.primary};
-  color: ${theme.colors.text};
-  border: none;
-  padding: ${theme.spacing.md} ${theme.spacing.xl};
-  border-radius: ${theme.borderRadius.md};
-  font-size: ${theme.typography.fontSize.base};
-  font-weight: ${theme.typography.fontWeight.medium};
-  cursor: pointer;
-  transition: all ${theme.transitions.normal};
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.sm};
-  
-  &:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: ${theme.shadows.medium};
   }
   
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+  svg {
+    color: ${theme.colors.primary};
+    font-size: ${theme.typography.fontSize.xl};
+    min-width: 24px;
+  }
+  
+  &:hover svg {
+    color: ${theme.colors.text};
   }
 `;
 
-function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
+function Contact() {
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: true
   });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      alert('Message sent successfully!');
-    }, 1000);
-  };
 
   return (
     <ContactContainer ref={ref}>
@@ -209,112 +107,36 @@ function Contact() {
         
         <ContactContent>
           <ContactInfo
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h3>Let's work together</h3>
-            <p>
-              I'm always interested in new opportunities and exciting projects. 
-              Whether you have a question or just want to say hi, I'll try my 
-              best to get back to you!
-            </p>
             
-            <ContactItem
-              initial={{ opacity: 0, x: -20 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <FaEnvelope />
-              <span>your.email@example.com</span>
-            </ContactItem>
-            
-            <ContactItem
-              initial={{ opacity: 0, x: -20 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              <FaPhone />
-              <span>+1 (555) 123-4567</span>
-            </ContactItem>
-            
-            <ContactItem
-              initial={{ opacity: 0, x: -20 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              <FaMapMarkerAlt />
-              <span>Your City, Country</span>
-            </ContactItem>
+            <ContactItems>
+              <ContactItem
+                href={`mailto:${PORTFOLIO_CONFIG.email}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <FaEnvelope />
+                <span>{PORTFOLIO_CONFIG.email}</span>
+              </ContactItem>
+              
+              <ContactItem
+                href={`tel:${PORTFOLIO_CONFIG.phone}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <FaPhone />
+                <span>{PORTFOLIO_CONFIG.phone}</span>
+              </ContactItem>
+            </ContactItems>
           </ContactInfo>
-          
-          <Form
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            onSubmit={handleSubmit}
-          >
-            <FormGroup>
-              <Label htmlFor="name">Name</Label>
-              <Input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                required
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="your.email@example.com"
-                required
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <Label htmlFor="subject">Subject</Label>
-              <Input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                placeholder="What's this about?"
-                required
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <Label htmlFor="message">Message</Label>
-              <TextArea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Tell me about your project..."
-                required
-              />
-            </FormGroup>
-            
-            <SubmitButton 
-              type="submit" 
-              disabled={isSubmitting}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <FaPaperPlane />
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </SubmitButton>
-          </Form>
         </ContactContent>
       </Container>
     </ContactContainer>

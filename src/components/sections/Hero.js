@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaGlobe } from 'react-icons/fa';
 import { theme } from '../../styles/theme';
+import { PORTFOLIO_CONFIG } from '../../utils/constants';
 
 const HeroContainer = styled.section`
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,7 +60,7 @@ const Description = styled(motion.p)`
   font-size: ${theme.typography.fontSize.lg};
   color: ${theme.colors.textSecondary};
   line-height: ${theme.typography.lineHeight.relaxed};
-  margin-bottom: ${theme.spacing.xxxl};
+  margin-bottom: ${theme.spacing.lg};
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -179,7 +180,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Sai
+          {PORTFOLIO_CONFIG.name}
         </Name>
         
         <Title
@@ -187,7 +188,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          I build things for the web
+          I build things for the web and mobile
         </Title>
         
         <Description
@@ -195,33 +196,9 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          I'm a full-stack developer specializing in building exceptional digital 
-          experiences. Currently focused on creating accessible, human-centered 
-          products with modern technologies.
+          {PORTFOLIO_CONFIG.bio}
         </Description>
         
-        <CTAButtons
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <Button 
-            href="#projects" 
-            className="primary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View My Work
-          </Button>
-          <Button 
-            href="#contact" 
-            className="secondary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Get In Touch
-          </Button>
-        </CTAButtons>
         
         <SocialLinks
           initial={{ opacity: 0, y: 30 }}
@@ -229,7 +206,7 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <SocialLink 
-            href="https://github.com" 
+            href={PORTFOLIO_CONFIG.social.github} 
             target="_blank" 
             rel="noopener noreferrer"
             whileHover={{ scale: 1.2 }}
@@ -237,7 +214,7 @@ function Hero() {
             <FaGithub />
           </SocialLink>
           <SocialLink 
-            href="https://linkedin.com" 
+            href={PORTFOLIO_CONFIG.social.linkedin} 
             target="_blank" 
             rel="noopener noreferrer"
             whileHover={{ scale: 1.2 }}
@@ -245,15 +222,15 @@ function Hero() {
             <FaLinkedin />
           </SocialLink>
           <SocialLink 
-            href="https://twitter.com" 
+            href={PORTFOLIO_CONFIG.website} 
             target="_blank" 
             rel="noopener noreferrer"
             whileHover={{ scale: 1.2 }}
           >
-            <FaTwitter />
+            <FaGlobe />
           </SocialLink>
           <SocialLink 
-            href="mailto:your.email@example.com"
+            href={PORTFOLIO_CONFIG.social.email}
             whileHover={{ scale: 1.2 }}
           >
             <FaEnvelope />

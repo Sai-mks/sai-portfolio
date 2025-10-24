@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { theme } from '../../styles/theme';
+import { PORTFOLIO_CONFIG } from '../../utils/constants';
 
 const HeaderContainer = styled.header`
   position: fixed;
@@ -141,7 +142,7 @@ function Header() {
   return (
     <HeaderContainer scrolled={scrolled}>
       <Nav>
-        <Logo to="/">Sai</Logo>
+        <Logo to="/">{PORTFOLIO_CONFIG.name}</Logo>
         <NavLinks isOpen={isMenuOpen}>
           {navItems.map((item, index) => (
             <motion.li

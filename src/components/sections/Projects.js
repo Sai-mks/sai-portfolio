@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 import { theme } from '../../styles/theme';
+import { PROJECTS } from '../../utils/constants';
 
 const ProjectsContainer = styled.section`
   padding: ${theme.spacing.xxxl} 0;
@@ -57,6 +58,15 @@ const ProjectImage = styled.div`
   color: ${theme.colors.text};
   position: relative;
   overflow: hidden;
+`;
+
+const ProjectLogo = styled.img`
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  background: white;
+  border-radius: ${theme.borderRadius.md};
+  padding: ${theme.spacing.sm};
 `;
 
 const ProjectOverlay = styled.div`
@@ -144,35 +154,7 @@ const LinkButton = styled.a`
   }
 `;
 
-const featuredProjects = [
-  {
-    id: 1,
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, payment processing, inventory management, and admin dashboard.',
-    tech: ['React', 'Node.js', 'MongoDB', 'Stripe', 'Express'],
-    demo: '#',
-    github: '#',
-    emoji: '🛒'
-  },
-  {
-    id: 2,
-    title: 'Task Management App',
-    description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, team collaboration, and project tracking features.',
-    tech: ['React', 'Socket.io', 'Express', 'PostgreSQL', 'Redis'],
-    demo: '#',
-    github: '#',
-    emoji: '📋'
-  },
-  {
-    id: 3,
-    title: 'Weather Dashboard',
-    description: 'A responsive weather dashboard with location-based forecasts, interactive maps, detailed analytics, and weather alerts system.',
-    tech: ['React', 'TypeScript', 'Chart.js', 'OpenWeather API', 'Mapbox'],
-    demo: '#',
-    github: '#',
-    emoji: '🌤️'
-  }
-];
+const featuredProjects = PROJECTS.filter(project => project.featured);
 
 function Projects() {
   const [ref, inView] = useInView({
@@ -201,13 +183,76 @@ function Projects() {
               whileHover={{ scale: 1.02 }}
             >
               <ProjectImage>
-                {project.emoji}
+                {(project.title.toLowerCase().includes('rotiwala') || project.title.toLowerCase().includes('rottiwala')) ? (
+                  <div style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', 
+                    borderRadius: '12px', 
+                    padding: '20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                    border: '2px solid #e9ecef',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <img 
+                      src={process.env.PUBLIC_URL + '/rotiwala.jpg'} 
+                      alt="Rottiwala Logo" 
+                      style={{
+                        maxWidth: '90%',
+                        maxHeight: '90%',
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
+                        transition: 'transform 0.3s ease'
+                      }}
+                      onError={(e) => {
+                        console.log('Image failed to load:', e.target.src);
+                        e.target.style.display = 'none';
+                      }}
+                      onLoad={() => console.log('Rottiwala image loaded successfully')}
+                    />
+                  </div>
+                ) : (project.title.toLowerCase().includes('hifix')) ? (
+                  <div style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', 
+                    borderRadius: '12px', 
+                    padding: '20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                    border: '2px solid #e9ecef',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <img 
+                      src={process.env.PUBLIC_URL + '/hifix.png'} 
+                      alt="HiFix Logo" 
+                      style={{
+                        maxWidth: '90%',
+                        maxHeight: '90%',
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))',
+                        transition: 'transform 0.3s ease'
+                      }}
+                      onError={(e) => {
+                        console.log('Image failed to load:', e.target.src);
+                        e.target.style.display = 'none';
+                      }}
+                      onLoad={() => console.log('HiFix image loaded successfully')}
+                    />
+                  </div>
+                ) : (
+                  project.emoji
+                )}
                 <ProjectOverlay>
                   <ProjectLink href={project.demo} target="_blank" rel="noopener noreferrer">
                     <FaExternalLinkAlt />
-                  </ProjectLink>
-                  <ProjectLink href={project.github} target="_blank" rel="noopener noreferrer">
-                    <FaGithub />
                   </ProjectLink>
                 </ProjectOverlay>
               </ProjectImage>
@@ -226,10 +271,6 @@ function Projects() {
                 </TechStack>
                 
                 <ProjectLinks>
-                  <LinkButton href={project.github} target="_blank" rel="noopener noreferrer">
-                    <FaGithub />
-                    Code
-                  </LinkButton>
                   <LinkButton href={project.demo} target="_blank" rel="noopener noreferrer">
                     <FaExternalLinkAlt />
                     Live Demo

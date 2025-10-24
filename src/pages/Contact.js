@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { FaEnvelope, FaPhone } from 'react-icons/fa';
 import { theme } from '../styles/theme';
+import { PORTFOLIO_CONFIG } from '../utils/constants';
 
 const ContactContainer = styled.div`
   min-height: 100vh;
-  padding: ${theme.spacing.xxxl} 0;
+  padding: ${theme.spacing.xxxl} 0 0;
 `;
 
 const Container = styled.div`
@@ -25,161 +27,127 @@ const Title = styled(motion.h1)`
   background-clip: text;
 `;
 
-const ContactContent = styled(motion.div)`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: ${theme.spacing.xxxl};
-  align-items: start;
+const ContactContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+`;
+
+const ContactItems = styled.div`
+  display: flex;
+  gap: ${theme.spacing.xl};
   
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    grid-template-columns: 1fr;
-    gap: ${theme.spacing.xl};
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-direction: column;
+    gap: ${theme.spacing.lg};
   }
 `;
 
 const ContactInfo = styled.div`
+  text-align: center;
+  max-width: 600px;
+  
   h3 {
     font-size: ${theme.typography.fontSize['2xl']};
     font-weight: ${theme.typography.fontWeight.semibold};
     margin-bottom: ${theme.spacing.lg};
     color: ${theme.colors.text};
   }
-  
-  p {
-    color: ${theme.colors.textSecondary};
-    line-height: ${theme.typography.lineHeight.relaxed};
-    margin-bottom: ${theme.spacing.lg};
-  }
 `;
 
-const ContactItem = styled.div`
+const ContactItem = styled(motion.a)`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: ${theme.spacing.md};
-  margin-bottom: ${theme.spacing.lg};
   color: ${theme.colors.textSecondary};
-  
-  svg {
-    color: ${theme.colors.primary};
-    font-size: ${theme.typography.fontSize.lg};
-  }
-`;
-
-const Form = styled.form`
+  padding: ${theme.spacing.md} ${theme.spacing.lg};
+  border-radius: ${theme.borderRadius.lg};
   background: ${theme.colors.surface};
-  padding: ${theme.spacing.xl};
-  border-radius: ${theme.borderRadius.xl};
   border: 1px solid ${theme.colors.border};
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: ${theme.spacing.lg};
-`;
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: ${theme.spacing.sm};
-  color: ${theme.colors.text};
-  font-weight: ${theme.typography.fontWeight.medium};
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: ${theme.spacing.md};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.borderRadius.md};
-  background: ${theme.colors.background};
-  color: ${theme.colors.text};
-  font-size: ${theme.typography.fontSize.base};
+  text-decoration: none;
   transition: all ${theme.transitions.normal};
-  
-  &:focus {
-    outline: none;
-    border-color: ${theme.colors.primary};
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-  
-  &::placeholder {
-    color: ${theme.colors.textMuted};
-  }
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  padding: ${theme.spacing.md};
-  border: 1px solid ${theme.colors.border};
-  border-radius: ${theme.borderRadius.md};
-  background: ${theme.colors.background};
-  color: ${theme.colors.text};
-  font-size: ${theme.typography.fontSize.base};
-  min-height: 120px;
-  resize: vertical;
-  transition: all ${theme.transitions.normal};
-  
-  &:focus {
-    outline: none;
-    border-color: ${theme.colors.primary};
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  }
-  
-  &::placeholder {
-    color: ${theme.colors.textMuted};
-  }
-`;
-
-const SubmitButton = styled.button`
-  background: ${theme.gradients.primary};
-  color: ${theme.colors.text};
-  border: none;
-  padding: ${theme.spacing.md} ${theme.spacing.xl};
-  border-radius: ${theme.borderRadius.md};
-  font-size: ${theme.typography.fontSize.base};
-  font-weight: ${theme.typography.fontWeight.medium};
-  cursor: pointer;
-  transition: all ${theme.transitions.normal};
+  min-width: 180px;
+  font-size: ${theme.typography.fontSize.sm};
   
   &:hover {
+    background: ${theme.colors.primary};
+    color: ${theme.colors.text};
     transform: translateY(-2px);
     box-shadow: ${theme.shadows.medium};
   }
   
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+  svg {
+    color: ${theme.colors.primary};
+    font-size: ${theme.typography.fontSize.lg};
+    min-width: 20px;
+  }
+  
+  &:hover svg {
+    color: ${theme.colors.text};
   }
 `;
 
+const Description = styled.p`
+  color: ${theme.colors.textSecondary};
+  line-height: ${theme.typography.lineHeight.relaxed};
+  margin-bottom: ${theme.spacing.lg};
+  text-align: center;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const AvailabilitySection = styled.div`
+  margin-top: ${theme.spacing.xl};
+  text-align: center;
+  padding: ${theme.spacing.lg};
+  background: ${theme.colors.surface};
+  border-radius: ${theme.borderRadius.lg};
+  border: 1px solid ${theme.colors.border};
+`;
+
+const AvailabilityText = styled.p`
+  color: ${theme.colors.textMuted};
+  font-size: ${theme.typography.fontSize.sm};
+  margin: 0;
+`;
+
+const SkillsSection = styled.div`
+  margin-top: ${theme.spacing.lg};
+  text-align: center;
+`;
+
+const SkillsTitle = styled.h4`
+  color: ${theme.colors.text};
+  font-size: ${theme.typography.fontSize.lg};
+  font-weight: ${theme.typography.fontWeight.semibold};
+  margin-bottom: ${theme.spacing.md};
+`;
+
+const SkillsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: ${theme.spacing.sm};
+  margin-bottom: ${theme.spacing.lg};
+`;
+
+const SkillTag = styled.span`
+  background: ${theme.colors.surfaceLight};
+  color: ${theme.colors.primary};
+  padding: ${theme.spacing.xs} ${theme.spacing.sm};
+  border-radius: ${theme.borderRadius.full};
+  font-size: ${theme.typography.fontSize.xs};
+  font-weight: ${theme.typography.fontWeight.medium};
+  border: 1px solid ${theme.colors.border};
+`;
+
+
 function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      alert('Message sent successfully!');
-    }, 1000);
-  };
-
   return (
-    <ContactContainer>
+    <ContactContainer className="contact-page">
       <Container>
         <Title
           initial={{ opacity: 0, y: 30 }}
@@ -189,91 +157,60 @@ function Contact() {
           Get In Touch
         </Title>
         
-        <ContactContent
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
+        <ContactContent>
           <ContactInfo>
             <h3>Let's work together</h3>
-            <p>
-              I'm always interested in new opportunities and exciting projects. 
-              Whether you have a question or just want to say hi, I'll try my 
-              best to get back to you!
-            </p>
+            <Description>
+              I'm a passionate Frontend Developer with 8 months of hands-on experience 
+              in developing web and mobile applications. I specialize in React.js, React Native, 
+              and modern web technologies, with experience working on live projects including 
+              HiFix and Rotiwala applications.
+            </Description>
             
-            <ContactItem>
-              <span>📧</span>
-              <span>your.email@example.com</span>
-            </ContactItem>
+            <ContactItems>
+              <ContactItem
+                href={`mailto:${PORTFOLIO_CONFIG.email}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <FaEnvelope />
+                <span>{PORTFOLIO_CONFIG.email}</span>
+              </ContactItem>
+              
+              <ContactItem
+                href={`tel:${PORTFOLIO_CONFIG.phone}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <FaPhone />
+                <span>{PORTFOLIO_CONFIG.phone}</span>
+              </ContactItem>
+            </ContactItems>
             
-            <ContactItem>
-              <span>📱</span>
-              <span>+1 (555) 123-4567</span>
-            </ContactItem>
+            <AvailabilitySection>
+              <AvailabilityText>
+                Available for freelance projects and full-time opportunities
+              </AvailabilityText>
+            </AvailabilitySection>
             
-            <ContactItem>
-              <span>📍</span>
-              <span>Your City, Country</span>
-            </ContactItem>
+            <SkillsSection>
+              <SkillsTitle>Technical Skills</SkillsTitle>
+              <SkillsList>
+                <SkillTag>JavaScript</SkillTag>
+                <SkillTag>React.js</SkillTag>
+                <SkillTag>React Native</SkillTag>
+                <SkillTag>HTML</SkillTag>
+                <SkillTag>CSS</SkillTag>
+                <SkillTag>Expo</SkillTag>
+                <SkillTag>Git</SkillTag>
+                <SkillTag>GitHub</SkillTag>
+              </SkillsList>
+            </SkillsSection>
           </ContactInfo>
-          
-          <Form onSubmit={handleSubmit}>
-            <FormGroup>
-              <Label htmlFor="name">Name</Label>
-              <Input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Your name"
-                required
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="your.email@example.com"
-                required
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <Label htmlFor="subject">Subject</Label>
-              <Input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                placeholder="What's this about?"
-                required
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <Label htmlFor="message">Message</Label>
-              <TextArea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Tell me about your project..."
-                required
-              />
-            </FormGroup>
-            
-            <SubmitButton type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </SubmitButton>
-          </Form>
         </ContactContent>
       </Container>
     </ContactContainer>
